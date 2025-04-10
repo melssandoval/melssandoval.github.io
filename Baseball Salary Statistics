@@ -1,0 +1,104 @@
+################ Numerical Data Descriptive Statistics#################
+
+salaries=read.csv(file.choose(), header=T) #Upload Baseball Salaries 2011 Data
+head(salaries)
+  str(salaries)  
+  mean(salaries$Salary, na.rm = TRUE)
+## [1] 3305055
+  median(salaries$Salary, na.rm = TRUE)
+## [1] 1175000
+  
+# get the minimum value
+  min(salaries$Salary)
+## [1] 414000
+    
+# get the maximum value
+    max(salaries$Salary)
+## [1] 3.2e+07
+      
+# get both the min and max values
+  range(salaries$Salary)
+## [1]   414000 32000000
+# Actaul range is 32000000-414000 = 31586000
+        
+# compute the spread between min & max values
+    max(salaries$Salary) - min(salaries$Salary)
+## [1] 31586000
+          
+          
+#Percentiles: For any percentage p, the pth percentile is the value such that
+#a percentage p of all values are less than it.
+          
+          
+#fivenum() function provides min, 25%, 50% (median), 75%, and max
+     fivenum(salaries$Salary, na.rm=TRUE)
+## [1]   414000   430325  1175000  4306250 32000000
+            
+# default quantile() percentiles are 0%, 25%, 50%, 75%, and 100% 
+# provides same output as fivenum()
+    quantile(salaries$Salary, na.rm = TRUE)
+##       0%      25%      50%      75%     100% 
+##   414000   430325  1175000  4306250 32000000
+              
+# we can customize quantile() for specific percentiles
+              quantile(salaries$Salary, probs = seq(from = 0, to = 1, by = .1), na.rm = TRUE)
+##       0%      10%      20%      30%      40%      50%      60%      70% 
+##   414000   416520   424460   441300   672000  1175000  2004000  3320000 
+##      80%      90%     100% 
+##  5500000  9800000 32000000
+                
+                
+quantile(salaries$Salary, probs = seq(from = 0, to = 1, by = .25), na.rm = TRUE)
+                
+                
+                
+# we can quickly compute the difference between the 1st and 3rd quantile
+    IQR(salaries$Salary)  # IQR=Q3-Q1 = 4306250 - 430325 = 3875925
+## [1] 3875925
+                
+                summary(salaries$Salary)
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+##   414000   430300  1175000  3305000  4306000 32000000
+                  
+# variance
+    var(salaries$Salary)
+## [1] 2.056389e+13
+                    
+# standard deviation
+   sd(salaries$Salary)
+## [1] 4534742
+                      
+      library(outliers)
+      library(ggplot2)
+# The outlier() function gets the most extreme observation from the mean. 
+# gets most extreme right-tail observation
+       outlier(salaries$Salary)
+## [1] 3.2e+07
+                      
+#Visualization
+        hist(salaries$Salary)
+                        
+        hist(salaries$Salary, main="Salary Histogram", xlab="Salry Interval",
+               ylab="Players Frequency", col="blue")
+                        
+        library(ggplot2)
+                        
+        ggplot(salaries, aes(x=Salary)) + 
+        geom_histogram(colour = "blue", fill = "pink") +
+        geom_vline(aes(xintercept = mean(Salary)), 
+               color = "red", linetype = "dashed") # add line for mean
+                                     
+                                     
+        ggplot(salaries, aes(x=Salary)) + 
+               geom_histogram(colour = "blue", fill = "pink")
+                                       
+        boxplot(salaries$Salary)
+        boxplot(salaries$Salary, horizontal = TRUE, log = "x", col="pink", main="Boxplot")
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
